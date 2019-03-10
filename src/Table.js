@@ -2,21 +2,34 @@ import React from 'react';
 import Button from "./Button";
 
 const Table = ({list, pattern, onDismiss, isSearched}) =>
-  list.filter(isSearched(pattern))
-    .map(item => (
-      <div key={item.objectId}>
-        <span> <a href={item.url}>{item.title}</a> </span>
-        <span>{item.author}</span>
-        <span>{item.num_comments}</span>
-        <span>{item.points}</span>
-        <span>
+  <div className="table">
+    {
+      list.filter(isSearched(pattern))
+        .map(item => (
+          <div key={item.objectId} className="table-row">
+            <span className="col-lg">
+              <a href={item.url}>{item.title}</a>
+            </span>
+            <span className="col-md">
+              {item.author}
+            </span>
+            <span className="col-sm">
+              {item.num_comments}
+            </span>
+            <span className="col-sm">
+              {item.points}
+            </span>
+            <span className="col-sm">
               <Button
                 onClick={() => onDismiss(item.objectId)}
+                className="button-inline"
               >
-                Dismiss
+              Dismiss
               </Button>
             </span>
-      </div>
-    ));
+          </div>
+        ))
+    }
+  </div>;
 
 export default Table
