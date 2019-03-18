@@ -6,7 +6,7 @@ const Table = ({list, pattern, onDismiss, isSearched}) =>
     {
       list.filter(isSearched(pattern))
         .map(item => (
-          <div key={item.objectId} className="table-row">
+          <div key={item.objectID} className="table-row">
             <span className="col-lg">
               <a href={item.url}>{item.title}</a>
             </span>
@@ -21,7 +21,7 @@ const Table = ({list, pattern, onDismiss, isSearched}) =>
             </span>
             <span className="col-sm">
               <Button
-                onClick={() => onDismiss(item.objectId)}
+                onClick={() => onDismiss(item.objectID)}
                 className="button-inline"
               >
               Dismiss
