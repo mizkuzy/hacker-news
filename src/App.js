@@ -2,11 +2,17 @@ import React, {Component} from 'react';
 import './App.css';
 import Table from "./Table";
 import Search from "./Search";
-import {DEFAULT_QUERY, PARAM_SEARCH, PATH_BASE, PATH_SEARCH} from "./const";
-
-const isSearched = (searchTerm) => (item) => {
-  return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
-};
+import {
+  DEFAULT_HPP,
+  DEFAULT_PAGE,
+  DEFAULT_QUERY,
+  PARAM_HPP,
+  PARAM_PAGE,
+  PARAM_SEARCH,
+  PATH_BASE,
+  PATH_SEARCH
+} from "./const";
+import Button from "./Button";
 
 class App extends Component {
 
@@ -23,6 +29,7 @@ class App extends Component {
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
   onSearchChange(event) {
@@ -39,23 +46,46 @@ class App extends Component {
   }
 
   setSearchTopStories(result) {
-    this.setState({result});
+    const {hits, page} = result;
+
+    const oldHits = page !== 0
+      ? this.state.result.hits
+      : [];
+    const updatedHits = [
+      ...oldHits,
+      ...hits
+    ];
+
+    this.setState({
+      result: {hits: updatedHits, page}
+    });
   }
 
-  fetchSearchTopStories(searchTerm) {
-    const input = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`;
-    fetch(input)
+  fetchSearchTopStories(searchTerm, page) {
+    const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}
+    &${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`;
+
+    fetch(url)
       .then(response => response.json())
       .then(result => this.setSearchTopStories(result));
   }
 
+  onSearchSubmit(event) {
+    const {searchTerm} = this.state;
+    this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
+
+    event.preventDefault();
+  }
+
   componentDidMount() {
     const {searchTerm} = this.state;
-    this.fetchSearchTopStories(searchTerm);
+
+    this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
   }
 
   render() {
     const {searchTerm, result} = this.state;
+    const page = (result && result.page) || 0;
 
     return (
       <div className="page">
@@ -63,6 +93,7 @@ class App extends Component {
           <Search
             value={searchTerm}
             onChange={this.onSearchChange}
+            onSubmit={this.onSearchSubmit}
           >
             Search
           </Search>
@@ -70,10 +101,13 @@ class App extends Component {
         {result &&
         <Table
           list={result.hits}
-          pattern={searchTerm}
           onDismiss={this.onDismiss}
-          isSearched={isSearched}
         />}
+        <div className="interactions">
+          <Button onClick={() => this.fetchSearchTopStories(searchTerm, page + 1)}>
+            More
+          </Button>
+        </div>
       </div>
     );
   }

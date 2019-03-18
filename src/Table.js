@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from "./Button";
 
-const Table = ({list, pattern, onDismiss, isSearched}) =>
+const Table = ({list, onDismiss}) =>
   <div className="table">
     {
-      list.filter(isSearched(pattern))
+      list
         .map(item => (
           <div key={item.objectID} className="table-row">
             <span className="col-lg">
