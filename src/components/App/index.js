@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import './App.css';
-import Table from "./Table";
-import Search from "./Search";
+import '../../App.css';
+
+import Table from "../Table";
 import {
   DEFAULT_HPP,
   DEFAULT_PAGE,
@@ -11,8 +11,9 @@ import {
   PARAM_SEARCH,
   PATH_BASE,
   PATH_SEARCH
-} from "./const";
-import Button from "./Button";
+} from "../../constants";
+import Search from "../Search";
+import Button from "../Button";
 
 class App extends Component {
 
