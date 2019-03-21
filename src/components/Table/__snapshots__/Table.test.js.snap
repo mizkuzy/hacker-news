@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table snapshots 1`] = `
+<div
+  className="table"
+>
+  <div
+    className="table-row"
+  >
+    <span
+      className="col-lg"
+    >
+      <a>
+        1
+      </a>
+    </span>
+    <span
+      className="col-md"
+    >
+      1
+    </span>
+    <span
+      className="col-sm"
+    >
+      1
+    </span>
+    <span
+      className="col-sm"
+    >
+      2
+    </span>
+    <span
+      className="col-sm"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Dismiss
+      </button>
+    </span>
+  </div>
+  <div
+    className="table-row"
+  >
+    <span
+      className="col-lg"
+    >
+      <a>
+        2
+      </a>
+    </span>
+    <span
+      className="col-md"
+    >
+      2
+    </span>
+    <span
+      className="col-sm"
+    >
+      1
+    </span>
+    <span
+      className="col-sm"
+    >
+      2
+    </span>
+    <span
+      className="col-sm"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Dismiss
+      </button>
+    </span>
+  </div>
+</div>
+`;
