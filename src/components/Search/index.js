@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 class Search extends Component {
   componentDidMount() {
-    this.input.focus();
+    if (this.input) {
+      this.input.focus();
+    }
   }
 
   render() {
@@ -14,7 +16,9 @@ class Search extends Component {
           type="text"
           value={value}
           onChange={onChange}
-          ref={(node) => { this.input = node; }} // get access to node element in stateless component
+          ref={(node) => {
+            this.input = node;
+          }} // get access to node element in stateless component
         />
         <button type="submit">
           {children}

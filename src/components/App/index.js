@@ -13,11 +13,10 @@ import {
   PATH_SEARCH
 } from "../../constants";
 import Search from "../Search";
-import Button from "../Button";
-import Loading from "../Loading";
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {faSpinner} from '@fortawesome/free-solid-svg-icons'
+import ButtonWithLoading from "../ButtonWithLoading";
 
 class App extends Component {
 
@@ -135,13 +134,12 @@ class App extends Component {
           onDismiss={this.onDismiss}
         />
         <div className="interactions">
-          { isLoading
-            ? <Loading />
-            : <Button
-              onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}>
-              More
-            </Button>
-          }
+          <ButtonWithLoading
+            isLoading={this.state.isLoading}
+            onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
+          >
+            More
+          </ButtonWithLoading>
         </div>
       </div>
     );
