@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "../../App.css";
-
+import "./App.css";
+import { sortBy } from "lodash";
 import Table from "../Table";
 import {
   DEFAULT_HPP,
@@ -18,6 +18,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ButtonWithLoading from "../ButtonWithLoading";
 
+export const SORTS = {
+  NONE: list => list,
+  TITLE: list => sortBy(list, "title"),
+  AUTHOR: list => sortBy(list, "author"),
+  COMMENTS: list => sortBy(list, "num_comments").reverse(),
+  POINTS: list => sortBy(list, "points").reverse()
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +33,9 @@ class App extends Component {
       results: null,
       searchKey: "",
       searchTerm: DEFAULT_QUERY,
-      isLoading: false
+      isLoading: false,
+      sortKey: "NONE",
+      isSortReverse: false
     };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
@@ -34,6 +44,13 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.onSort = this.onSort.bind(this);
+  }
+
+  onSort(sortKey) {
+    const isSortReverse =
+      this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({ sortKey, isSortReverse });
   }
 
   needsToSearchTopStories(searchTerm) {
@@ -103,7 +120,7 @@ class App extends Component {
 
   render() {
     library.add(faSpinner);
-    const { searchTerm, results, searchKey, isLoading } = this.state;
+    const { searchTerm, results, searchKey, sortKey } = this.state;
     const searchKeyResult = results && results[searchKey];
     const page = (searchKeyResult && searchKeyResult.page) || 0;
     const list = (searchKeyResult && searchKeyResult.hits) || [];
@@ -119,7 +136,13 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table list={list} onDismiss={this.onDismiss} />
+        <Table
+          list={list}
+          onDismiss={this.onDismiss}
+          sortKey={sortKey}
+          onSort={this.onSort}
+          isSortReverse={this.state.isSortReverse}
+        />
         <div className="interactions">
           <ButtonWithLoading
             isLoading={this.state.isLoading}

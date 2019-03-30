@@ -5,6 +5,59 @@ exports[`Table snapshots 1`] = `
   className="table"
 >
   <div
+    className="table-header"
+  >
+    <span
+      className="col-lg"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Title
+      </button>
+    </span>
+    <span
+      className="col-md"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Author
+      </button>
+    </span>
+    <span
+      className="col-xs"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Comments
+      </button>
+    </span>
+    <span
+      className="col-xs"
+    >
+      <button
+        className="button-inline"
+        onClick={[Function]}
+        type="button"
+      >
+        Points
+      </button>
+    </span>
+    <span
+      className="col-xs"
+    >
+      Archive
+    </span>
+  </div>
+  <div
     className="table-row"
   >
     <span
@@ -20,12 +73,12 @@ exports[`Table snapshots 1`] = `
       1
     </span>
     <span
-      className="col-sm"
+      className="col-xs"
     >
       1
     </span>
     <span
-      className="col-sm"
+      className="col-xs"
     >
       2
     </span>
@@ -57,12 +110,12 @@ exports[`Table snapshots 1`] = `
       2
     </span>
     <span
-      className="col-sm"
+      className="col-xs"
     >
       1
     </span>
     <span
-      className="col-sm"
+      className="col-xs"
     >
       2
     </span>
