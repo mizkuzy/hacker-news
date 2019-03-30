@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import '../../App.css';
+import React, { Component } from "react";
+import "../../App.css";
 
 import Table from "../Table";
 import {
@@ -14,22 +14,19 @@ import {
 } from "../../constants";
 import Search from "../Search";
 
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {faSpinner} from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import ButtonWithLoading from "../ButtonWithLoading";
 
 class App extends Component {
-
   constructor(props) {
     super(props);
-    this.state =
-      {
-        results: null,
-        searchKey: '',
-        searchTerm: DEFAULT_QUERY,
-        isLoading: false,
-      }
-    ;
+    this.state = {
+      results: null,
+      searchKey: "",
+      searchTerm: DEFAULT_QUERY,
+      isLoading: false
+    };
 
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
@@ -44,46 +41,39 @@ class App extends Component {
   }
 
   onSearchChange(event) {
-    this.setState({searchTerm: event.target.value});
+    this.setState({ searchTerm: event.target.value });
   }
 
   onDismiss(id) {
-    const {results, searchKey} = this.state;
-    const {hits, page} = results[searchKey];
+    const { results, searchKey } = this.state;
+    const { hits, page } = results[searchKey];
 
     const updatedHits = hits.filter(item => item.objectID !== id);
 
-
-    this.setState(
-      {
-        results: {...results, [searchKey]: {hits: updatedHits, page}}
-      }
-    );
+    this.setState({
+      results: { ...results, [searchKey]: { hits: updatedHits, page } }
+    });
   }
 
   setSearchTopStories(result) {
-    const {hits, page} = result;
-    const {searchKey, results} = this.state;
+    const { hits, page } = result;
+    const { searchKey, results } = this.state;
 
-    const oldHits = results && results[searchKey]
-      ? results[searchKey].hits
-      : [];
-    const updatedHits = [
-      ...oldHits,
-      ...hits
-    ];
+    const oldHits =
+      results && results[searchKey] ? results[searchKey].hits : [];
+    const updatedHits = [...oldHits, ...hits];
 
     this.setState({
       results: {
         ...results,
-        [searchKey]: {hits: updatedHits, page}
+        [searchKey]: { hits: updatedHits, page }
       },
       isLoading: false
     });
   }
 
   fetchSearchTopStories(searchTerm, page) {
-    this.setState({isLoading: true})
+    this.setState({ isLoading: true });
     const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}
     &${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`;
 
@@ -93,9 +83,9 @@ class App extends Component {
   }
 
   onSearchSubmit(event) {
-    const {searchTerm} = this.state;
+    const { searchTerm } = this.state;
 
-    this.setState({searchKey: searchTerm});
+    this.setState({ searchKey: searchTerm });
 
     if (this.needsToSearchTopStories(searchTerm)) {
       this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
@@ -105,15 +95,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const {searchTerm} = this.state;
+    const { searchTerm } = this.state;
 
-    this.setState({searchKey: searchTerm});
+    this.setState({ searchKey: searchTerm });
     this.fetchSearchTopStories(searchTerm, DEFAULT_PAGE);
   }
 
   render() {
-    library.add(faSpinner)
-    const {searchTerm, results, searchKey, isLoading} = this.state;
+    library.add(faSpinner);
+    const { searchTerm, results, searchKey, isLoading } = this.state;
     const searchKeyResult = results && results[searchKey];
     const page = (searchKeyResult && searchKeyResult.page) || 0;
     const list = (searchKeyResult && searchKeyResult.hits) || [];
@@ -129,10 +119,7 @@ class App extends Component {
             Search
           </Search>
         </div>
-        <Table
-          list={list}
-          onDismiss={this.onDismiss}
-        />
+        <Table list={list} onDismiss={this.onDismiss} />
         <div className="interactions">
           <ButtonWithLoading
             isLoading={this.state.isLoading}
