@@ -15,7 +15,11 @@ import {
 import Search from "../Search";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSpinner,
+  faSortUp,
+  faSortDown
+} from "@fortawesome/free-solid-svg-icons";
 import ButtonWithLoading from "../ButtonWithLoading";
 
 export const SORTS = {
@@ -119,7 +123,7 @@ class App extends Component {
   }
 
   render() {
-    library.add(faSpinner);
+    library.add(faSpinner, faSortUp, faSortDown);
     const { searchTerm, results, searchKey, sortKey } = this.state;
     const searchKeyResult = results && results[searchKey];
     const page = (searchKeyResult && searchKeyResult.page) || 0;

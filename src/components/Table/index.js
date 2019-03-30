@@ -12,22 +12,42 @@ const Table = ({ list, onDismiss, sortKey, onSort, isSortReverse }) => {
     <div className="table">
       <div className="table-header">
         <span className="col-lg">
-          <Sort sortKey={"TITLE"} activeSortKey={sortKey} onSort={onSort}>
+          <Sort
+            sortKey={"TITLE"}
+            activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
+            onSort={onSort}
+          >
             Title
           </Sort>
         </span>
         <span className="col-md">
-          <Sort sortKey={"AUTHOR"} activeSortKey={sortKey} onSort={onSort}>
+          <Sort
+            sortKey={"AUTHOR"}
+            activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
+            onSort={onSort}
+          >
             Author
           </Sort>
         </span>
         <span className="col-xs">
-          <Sort sortKey={"COMMENTS"} activeSortKey={sortKey} onSort={onSort}>
+          <Sort
+            sortKey={"COMMENTS"}
+            activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
+            onSort={onSort}
+          >
             Comments
           </Sort>
         </span>
         <span className="col-xs">
-          <Sort sortKey={"POINTS"} activeSortKey={sortKey} onSort={onSort}>
+          <Sort
+            sortKey={"POINTS"}
+            activeSortKey={sortKey}
+            isSortReverse={isSortReverse}
+            onSort={onSort}
+          >
             Points
           </Sort>
         </span>
