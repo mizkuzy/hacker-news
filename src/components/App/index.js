@@ -106,7 +106,7 @@ class App extends Component {
 
   render() {
     library.add(faSpinner, faSortUp, faSortDown);
-    const { searchTerm, results, searchKey } = this.state;
+    const { searchTerm, results, searchKey, isLoading } = this.state;
     const searchKeyResult = results && results[searchKey];
     const page = (searchKeyResult && searchKeyResult.page) || 0;
     const list = (searchKeyResult && searchKeyResult.hits) || [];
@@ -125,7 +125,7 @@ class App extends Component {
         <Table list={list} onDismiss={this.onDismiss} />
         <div className="interactions">
           <ButtonWithLoading
-            isLoading={this.state.isLoading}
+            isLoading={isLoading}
             onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
           >
             More
