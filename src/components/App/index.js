@@ -20,6 +20,10 @@ import {
   faSortDown
 } from "@fortawesome/free-solid-svg-icons";
 import ButtonWithLoading from "../ButtonWithLoading";
+import {
+  updateResults,
+  updateSearchTopStoriesState
+} from "./hofUpdateStatefunctions";
 
 class App extends Component {
   constructor(props) {
@@ -48,31 +52,13 @@ class App extends Component {
   }
 
   onDismiss(id) {
-    const { results, searchKey } = this.state;
-    const { hits, page } = results[searchKey];
-
-    const updatedHits = hits.filter(item => item.objectID !== id);
-
-    this.setState({
-      results: { ...results, [searchKey]: { hits: updatedHits, page } }
-    });
+    this.setState(updateResults(id));
   }
 
   setSearchTopStories(result) {
     const { hits, page } = result;
-    const { searchKey, results } = this.state;
-
-    const oldHits =
-      results && results[searchKey] ? results[searchKey].hits : [];
-    const updatedHits = [...oldHits, ...hits];
-
-    this.setState({
-      results: {
-        ...results,
-        [searchKey]: { hits: updatedHits, page }
-      },
-      isLoading: false
-    });
+    // If setState relies on state or props than use setState((prevState, props)=>{})
+    this.setState(updateSearchTopStoriesState(hits, page));
   }
 
   fetchSearchTopStories(searchTerm, page) {

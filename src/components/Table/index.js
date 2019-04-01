@@ -3,6 +3,7 @@ import Button from "../Button";
 import PropTypes from "prop-types";
 import Sort from "../Sort";
 import { sortBy } from "lodash";
+import {updateSortKeyAndSortReverse} from "../App/hofUpdateStatefunctions";
 
 export const SORTS = {
   NONE: list => list,
@@ -24,9 +25,7 @@ class Table extends Component {
   }
 
   onSort(sortKey) {
-    const isSortReverse =
-      this.state.sortKey === sortKey && !this.state.isSortReverse;
-    this.setState({ sortKey, isSortReverse });
+    this.setState(updateSortKeyAndSortReverse(sortKey));
   }
 
   render() {
